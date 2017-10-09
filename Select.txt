@@ -1,0 +1,3 @@
+SELECT me.*, pac.snombre as nombrepac, pac.sapellido as apellidopac FROM `paciente_intervencion` me, `detalle_paciente_interven` deta, `paciente` pac WHERE me.id = deta.id_paciente_intervencion and
+me.id_paciente = pac.id
+

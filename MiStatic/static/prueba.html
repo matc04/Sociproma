@@ -1,0 +1,27 @@
+<BODY onLoad="cacheOff()">
+<STYLE TYPE="text/css">
+#cache {
+position:absolute; left=10; top:10px; z-index:10; visibility:hidden;
+}
+</STYLE>
+<SCRIPT LANGUAGE="JavaScript">
+ver = navigator.appVersion.substring(0,1)
+if (ver >= 4)
+{
+  document.write('<DIV ID="cache"><TABLE WIDTH=400 BGCOLOR=#000000 BORDER=0 CELLPADDING=2 CELLSPACING=0><TR><TD ALIGN=center VALIGN=middle><TABLE WIDTH=100% BGCOLOR=#FFFFFF BORDER=0 CELLPADDING=0 CELLSPACING=0><TR><TD ALIGN=center VALIGN=middle><FONT FACE="Arial, Verdana" SIZE=4><B><BR>ESPERE POR FAVOR ... <BR><BR></B></FONT></TD> </TR></TABLE></TD> </TR></TABLE></DIV>');
+  var navi = (navigator.appName == "Netscape" && parseInt(navigator.appVersion) >= 4);
+  var HIDDEN = (navi) ? 'hide' : 'hidden';
+  var VISIBLE = (navi) ? 'show' : 'visible';
+  var cache = (navi) ? document.cache : document.all.cache.style;
+  largeur = screen.width;
+  cache.left = Math.round(100);
+  cache.visibility = VISIBLE;
+}
+function cacheOff()
+{
+  if (ver >= 4)
+  {
+    cache.visibility = HIDDEN;
+  }
+}
+</SCRIPT>

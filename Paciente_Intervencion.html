@@ -1,0 +1,181 @@
+{literal}
+<script language="JavaScript" src="js/calendar_eu.js"></script> 
+
+<script>
+function agregarcont_fila(idTabla,arrayContenido){ 
+  var tr = document.createElement("tr"); //crear objeto <TR> 
+  tr.id = "trDetalle_" + cont_fila;
+  for (i=0; i < arrayContenido.length; i++){ 
+    var td = document.createElement("td"); //crear objeto <TD> 
+    td.innerHTML = arrayContenido[i];       //agregamos HTML al interior de <TD>    
+    tr.appendChild(td); 
+  } 
+  obj1 = document.getElementById(idTabla); 
+  obj1.lastChild.appendChild(tr); 
+} 
+
+function eliminaFila(fila){
+  var objHijo = document.getElementById('trDetalle_' + fila);
+  var objPadre = objHijo.parentNode;
+  objPadre.removeChild(objHijo);
+}
+
+cont_fila=0; 
+
+function agregarFila(){ 
+var campo = cont_fila + 1;
+idtabla="tabla"; 
+contenido = new Array(); 
+contenido[0] = ' <select name="shipping"><option value="1"> standard</option><option value="2"> 2-day</option><option value="3"> overnight</option></select> ';
+nombre_1 = "campo_"+campo;
+contenido[1] = '<input type="text" name="'+nombre_1+'" value="'+nombre_1+'">';    
+contenido[2] = '<input type="text" name="campo_3" value="campo_3">';    
+contenido[3] = '<input type="button" name="botonx2" value="elimina fila" onClick="eliminaFila('+cont_fila+');">';       
+agregarcont_fila(idtabla,contenido); 
+cont_fila++; 
+} 
+
+
+</script>
+<script language="javascript">
+function runMode( accion, Id ){
+  forma = document.getElementById('fpaciente_intervencion');
+
+  forma.accion.value = accion;
+  forma.action = "CtrlPacienteIntervencion.php";
+  forma.id.value = Id;
+
+  if (accion != "elimina" && accion != "actualiza" && accion != "buscar" ){
+    if (validate_fpaciente_intervencion(forma)){ forma.submit() };
+  }
+  else{
+    forma.submit();
+  }
+}
+
+function validate_fpaciente_intervencion (form) {
+  var alertstr = '';
+  var invalid  = 0;
+
+// shistoria: standard text, hidden, password, or textarea box
+  var shistoria = form.elements['shistoria'].value;
+  if (shistoria == null || shistoria == "" ) {
+    alertstr += '- Indique un valor válido para el campo "Historia"\n';
+    invalid++;
+  }
+
+// snombre: standard text, hidden, password, or textarea box
+  var snombre = form.elements['snombre'].value;
+  if (snombre == null || snombre == "" ) {
+    alertstr += '- Indique un valor válido para el campo "Nombre"\n';
+    invalid++;
+  }
+
+// sapellido: standard text, hidden, password, or textarea box
+  var sapellido = form.elements['sapellido'].value;
+  if (sapellido == null || sapellido == "" ) {
+    alertstr += '- Indique un valor válido para el campo "Apellido"\n';
+    invalid++;
+  }
+
+  if (invalid > 0 || alertstr != '') {
+    if (! invalid) invalid = 'Los Siguiemtes';   // catch for programmer error
+    alert(''+invalid+' error(es) fueron encontrados al enviar la información:'+'\n\n'
+    +alertstr+'\n'+'- Por favor corrija los campos y trate de nuevo');
+    return false;
+  }
+  return true;  // all checked ok
+}
+</script>
+{/literal}
+
+{include file='encabezado.tpl'}
+
+<LINK HREF="css/anestesia.css" REL="stylesheet" TYPE="text/css">
+<link rel="stylesheet" href="calendar.css"> 
+<table width="100%">
+<tr>
+<td class="tituloforma" align="center">{$titulo}</td>
+</tr>
+</table>
+
+<FORM METHOD="post" name="fpaciente_intervencion" id="fpaciente_intervencion" ACTION="CtrlPaciente_Intervencion.php">
+<fieldset style="background-color : #e3e3e3">
+<legend>Datos Intervención por Paciente</legend>
+<table width="100%">
+  <tr>
+    <td width="15%"><b>Número de Recibo:</b></td>
+    <td align="left"><input type="text" name="num_recibo" id="num_recibo" size="10" value="{$num_recibo}"><b>*</b></td>
+  </tr>
+  <tr>
+    <td width="15%"><b>Fecha de la Intervención:</b></td>
+    <td align="left"><input type="text" name="fecha" id="snombre" size="30" value="{$fecha}"><b>*</b></td>
+  </tr>
+  <tr>
+    <td><b>Tipo de Operación:</b></td>
+    <td><input type="text" name="id_tpoperacion" id="id_tpoperacion" size="30" value="{$id_tpoperacion}"><b>*</b></td>
+  </tr>
+  <tr>
+    <td><b>Cirujano:</b></td>
+    <td><input type="text" name="id_doctor_cirujano" id="id_doctor_cirujano" size="30" value="{$id_doctor_cirujano}"><b>*</b></td>
+  </tr>
+  <tr>
+    <td><b>Anestesiologo:</b></td>
+    <td><input type="text" name="id_doctor_anestesia" id="id_doctor_anestesia" size="30" value="{$id_doctor_anestesia}"><b>*</b></td>
+  </tr>
+  <tr>
+    <td><b>Monto_total:</b></td>
+    <td><input type="text" name="monto_total" id="monto_total" size="30" value="{$monto_total}"><b>*</b></td>
+  </tr>
+  <tr>
+    <td><b>Responsable:</b></td>
+    <td><input type="text" name="monto_total" id="monto_total" size="30" value="{$id_responsable}"><b>*</b></td>
+  </tr>
+  <tr>
+    <td><b>Monto Pagado:</b></td>
+    <td><input type="text" name="monto_pagado" id="monto_pagado" size="30" value="{$monto_pagado}"><b>*</b></td>
+  </tr>
+  <tr>
+    <td><b>Fecha Pago:</b></td>
+    <td><input type="text" name="fecha_pagado" id="fecha_pagado" size="30" value="{$fecha_pagado}"><b>*</b></td>
+  </tr>
+  <tr>
+    <td><b>Observación:</b></td>
+    <td><input type="text" name="sobservacion" id="sobservacion" size="30" value="{$sobservacion}"><b>*</b></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" ><font color="#0F305A" size="0" > (*) Estos campos son obligatorios</font></td>
+  </tr>
+</table>
+</fieldset>
+<br/><br/>
+<table width="75%" cellpadding="1" align="center" id="tabla">
+  <tr>
+    <td colspan="4" align="right"><input type="button" name="botonx1" value="crear fila" onClick="agregarFila();"></td>
+  </tr>
+  <tr class="titulodonforojo">
+     <th>Historia</th>
+     <th>Nombre</th>
+     <th>Apellido</th>
+     <th></th>
+  </tr>
+  <tr class={$field.clase}>
+    <td><select name="shipping">
+          <option value="1"> standard</option>
+	  <option value="2"> 2-day</option>
+	  <option value="3"> overnight</option>
+        </select>
+    </td>
+    <td><input type="text" name="nmonto" id="nmonto"></td>
+    <td><input type="text" name="sobservacion_inter" id="sobservacion_inter"></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table width="75%" cellpadding="1" align="center" id="tabla">
+    <tr>
+      <td align="center"><input type="reset" id="btnCancelar" value="Cancelar"><input type="button" id="btnEnviar" onClick=" runMode('enviar', '{$id}');" value="Enviar"></td>
+    </tr>
+</table>
+<input type="hidden" name="accion" id="accion">
+<input type="hidden" name="id" id="id">
+</FORM>

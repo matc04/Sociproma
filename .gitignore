@@ -1,0 +1,4 @@
+#Archivos que no deben ser cambiados
+
+config.yaml
+smarty/templates_c/*
