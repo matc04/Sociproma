@@ -71,7 +71,6 @@
 
   if (!empty($_POST['accion']) && $_POST['accion'] != "buscarPacientes" ) {
     if ($_POST["accion"] == "buscar"){
-      $_SESSION['condicion'] = '';
       buscar( $smarty, $miconexion->Conexion_ID, $miPacienteIntervencion );
 
       $smarty->assign('numreciboini',        $_POST["numreciboini"] );
